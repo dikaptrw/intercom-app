@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
   --color-stroke: #d9d9d9;
@@ -24,8 +24,8 @@
   --text-8xl: 6rem;
   --text-9xl: 8rem;
 
-  --shadow-popover: 0 0 0 1px hsla(0, 0%, 0%, 0.1),
-    0 4px 11px hsla(0, 0%, 0%, 0.1);
+  --shadow-popover:
+    0 0 0 1px hsla(0, 0%, 0%, 0.1), 0 4px 11px hsla(0, 0%, 0%, 0.1);
 
   /* animation */
   --animate-slideUpAndFade: slideUpAndFade 400ms cubic-bezier(0.16, 1, 0.3, 1);

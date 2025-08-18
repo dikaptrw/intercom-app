@@ -1,6 +1,6 @@
 export const MAIN_ROUTES = {
   // you can put another main routes here ex: /v2
-  ROOT: "/",
+  ROOT: '/',
 };
 
 /**
@@ -31,7 +31,7 @@ export const pathGenerator =
  */
 export const generateRouteParams = (
   route: string,
-  params: { [key: string]: string | number }
+  params: { [key: string]: string | number },
 ): string => {
   return route.replace(/:([a-zA-Z0-9_]+)/g, (_, paramName) => {
     if (params[paramName] === undefined) {
