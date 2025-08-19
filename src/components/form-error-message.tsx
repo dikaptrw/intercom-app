@@ -7,7 +7,7 @@ export interface FormErrorMessageProps {
 
 function FormErrorMessage({ children, className }: FormErrorMessageProps) {
   return (
-    <div className={cn('text-red-700 text-2xs', className)}>{children}</div>
+    <div className={cn('text-red-700 text-xs', className)}>{children}</div>
   );
 }
 

@@ -1,10 +1,19 @@
-import { LoginForm } from '@/components/login-form';
+import { LoginForm } from '@/components/forms/login-form';
+import {
+  lightTheme,
+  MeetingProvider,
+} from 'amazon-chime-sdk-component-library-react';
+import { ThemeProvider } from 'styled-components';
 
 function LoginPage() {
   return (
     <div className="bg-background flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
       <div className="w-full max-w-sm">
-        <LoginForm />
+        <ThemeProvider theme={lightTheme}>
+          <MeetingProvider>
+            <LoginForm />
+          </MeetingProvider>
+        </ThemeProvider>
       </div>
     </div>
   );
