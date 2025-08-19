@@ -1,0 +1,25 @@
+service: chime-backend
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: ap-southeast-1
+  stage: dev
+
+functions:
+  createMeeting:
+    handler: createMeeting.handler
+    events:
+      - httpApi:
+          path: /createMeeting
+          method: post
+
+  joinMeeting:
+    handler: joinMeeting.handler
+    events:
+      - httpApi:
+          path: /joinMeeting
+          method: post
+
+package:
+  individually: true
