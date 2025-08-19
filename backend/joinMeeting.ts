@@ -38,7 +38,11 @@ export const handler = async (
 
     return {
       statusCode: 200,
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Credentials': true,
+        'Access-Control-Allow-Origin': 'http://localhost:5173',
+      },
       body: JSON.stringify({
         meeting: meeting.Meeting,
         attendee: attendee.Attendee,
@@ -49,7 +53,11 @@ export const handler = async (
 
     return {
       statusCode: 500,
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Credentials': true,
+        'Access-Control-Allow-Origin': 'http://localhost:5173',
+      },
       body: JSON.stringify({
         error:
           err instanceof Error

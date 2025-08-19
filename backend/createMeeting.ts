@@ -21,13 +21,17 @@ export const handler = async (
 
     const meetingResponse = await chime.createMeeting({
       ClientRequestToken: meetingId,
-      MediaRegion: 'ap-southeast-2',
+      MediaRegion: DEFAULT_REGION,
       ExternalMeetingId: meetingId,
     });
 
     return {
       statusCode: 200,
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Credentials': true,
+        'Access-Control-Allow-Origin': 'http://localhost:5173',
+      },
       body: JSON.stringify({
         message: 'Meeting created successfully',
         meeting: meetingResponse.Meeting,
@@ -38,7 +42,11 @@ export const handler = async (
 
     return {
       statusCode: 500,
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Credentials': true,
+        'Access-Control-Allow-Origin': 'http://localhost:5173',
+      },
       body: JSON.stringify({
         error:
           err instanceof Error

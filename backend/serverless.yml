@@ -5,21 +5,34 @@ provider:
   runtime: nodejs20.x
   region: ap-southeast-1
   stage: dev
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - chime:CreateMeeting
+        - chime:DeleteMeeting
+        - chime:GetMeeting
+        - chime:ListMeetings
+        - chime:CreateAttendee
+        - chime:DeleteAttendee
+        - chime:GetAttendee
+      Resource: '*'
 
 functions:
   createMeeting:
     handler: createMeeting.handler
     events:
-      - httpApi:
-          path: /createMeeting
+      - http:
+          path: /create-meeting
           method: post
+          cors: true
 
   joinMeeting:
     handler: joinMeeting.handler
     events:
-      - httpApi:
-          path: /joinMeeting
+      - http:
+          path: /join-meeting
           method: post
+          cors: true
 
 package:
   individually: true
