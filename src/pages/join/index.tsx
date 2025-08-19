@@ -1,4 +1,4 @@
-import { LoginForm } from '@/components/forms/login-form';
+import { JoinForm } from '@/components/forms/join-form';
 import {
   lightTheme,
   MeetingProvider,
@@ -11,7 +11,7 @@ function LoginPage() {
       <div className="w-full max-w-sm">
         <ThemeProvider theme={lightTheme}>
           <MeetingProvider>
-            <LoginForm />
+            <JoinForm />
           </MeetingProvider>
         </ThemeProvider>
       </div>

@@ -7,7 +7,7 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 import { BASE_ROUTES, ROUTES } from '@/utils/constants/routes';
-import LoginPage from './pages/login';
+import LoginPage from './pages/join';
 import MeetingPage from './pages/meeting';
 import { ThemeProvider } from 'styled-components';
 import {
@@ -18,8 +18,8 @@ import {
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route index element={<Navigate to={ROUTES.LOGIN} replace />} />
-      <Route path={BASE_ROUTES.LOGIN} element={<LoginPage />} />å
+      <Route index element={<Navigate to={ROUTES.JOIN} replace />} />
+      <Route path={BASE_ROUTES.JOIN} element={<LoginPage />} />å
       <Route path={BASE_ROUTES.MEETING} element={<MeetingPage />} />å
     </>,
   ),

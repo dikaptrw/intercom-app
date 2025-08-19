@@ -13,15 +13,12 @@ import { MeetingSessionConfiguration } from 'amazon-chime-sdk-js';
 import { useMeetingManager } from 'amazon-chime-sdk-component-library-react';
 import { ERROR_MESSAGE } from '@/utils/constants/errorMessages';
 
-interface LoginFormInput {
+interface JoinFormInput {
   meetingId: string;
   attendeeName: string;
 }
 
-export function LoginForm({
-  className,
-  ...props
-}: React.ComponentProps<'div'>) {
+export function JoinForm({ className, ...props }: React.ComponentProps<'div'>) {
   const meetingManager = useMeetingManager();
   const [isLoading, setIsLoading] = useState(false);
   const {
@@ -30,14 +27,14 @@ export function LoginForm({
     trigger,
     handleSubmit,
     // setError,
-  } = useForm<LoginFormInput>({
+  } = useForm<JoinFormInput>({
     defaultValues: {
       meetingId: '',
       attendeeName: '',
     },
   });
 
-  const onSubmit: SubmitHandler<LoginFormInput> = useCallback(
+  const onSubmit: SubmitHandler<JoinFormInput> = useCallback(
     async ({ meetingId, attendeeName }) => {
       setIsLoading(true);
 
