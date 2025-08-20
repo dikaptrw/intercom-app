@@ -27,8 +27,25 @@ export const handler = async (
       };
     }
 
-    // Optional: validate meeting exists
-    const meeting = await chime.getMeeting({ MeetingId: meetingId });
+    let meeting;
+    try {
+      meeting = await chime.getMeeting({ MeetingId: meetingId });
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      return {
+        statusCode: 400,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Credentials': true,
+          'Access-Control-Allow-Origin': 'http://localhost:5173',
+        },
+        body: JSON.stringify({
+          code: 'MEETING_NOT_FOUND',
+          message:
+            err.message || `Meeting with id "${meetingId}" does not exist`,
+        }),
+      };
+    }
 
     // Create an attendee
     const attendee = await chime.createAttendee({
