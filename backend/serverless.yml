@@ -34,5 +34,13 @@ functions:
           method: post
           cors: true
 
+  getMeeting:
+    handler: getMeeting.handler
+    events:
+      - http:
+          path: /get-meeting
+          method: get
+          cors: true
+
 package:
   individually: true
