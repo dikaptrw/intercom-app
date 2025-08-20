@@ -20,6 +20,7 @@ export default tseslint.config([
     plugins: {
       'config-prettier': configPrettier,
     },
+    'react-refresh/only-export-components': 'off',
     languageOptions: {
       ecmaVersion: 2020,
       globals: globals.browser,
