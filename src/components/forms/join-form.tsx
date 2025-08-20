@@ -5,13 +5,12 @@ import { cn } from '@/utils/functions';
 import FormGroupInput from '../form-groups/form-group-input';
 import { useCallback, useState } from 'react';
 import { Controller, type SubmitHandler, useForm } from 'react-hook-form';
-import {
-  CREATE_MEETING_ENDPOINT,
-  JOIN_MEETING_ENDPOINT,
-} from '@/utils/constants';
-import { MeetingSessionConfiguration } from 'amazon-chime-sdk-js';
 import { useMeetingManager } from 'amazon-chime-sdk-component-library-react';
 import { ERROR_MESSAGE } from '@/utils/constants/errorMessages';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '@/utils/constants/routes';
+import { generateRouteParams } from '@/utils/functions/routes';
+import { AWS_CHIME_API } from '@/utils/constants/api';
 
 interface JoinFormInput {
   meetingId: string;
@@ -20,6 +19,7 @@ interface JoinFormInput {
 
 export function JoinForm({ className, ...props }: React.ComponentProps<'div'>) {
   const meetingManager = useMeetingManager();
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const {
     formState: { errors },
@@ -34,42 +34,37 @@ export function JoinForm({ className, ...props }: React.ComponentProps<'div'>) {
     },
   });
 
+  console.log('Meeting session:', meetingManager.meetingSession);
+
   const onSubmit: SubmitHandler<JoinFormInput> = useCallback(
     async ({ meetingId, attendeeName }) => {
       setIsLoading(true);
 
       // Call your Lambda API Gateway endpoint
-      const resCreateMeeting = await fetch(CREATE_MEETING_ENDPOINT, {
+      const resCreateMeeting = await fetch(AWS_CHIME_API.meeting.create, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ meetingId }),
       });
       const jsonCreateMeeting = await resCreateMeeting.json();
 
-      const resJoinMeeting = await fetch(JOIN_MEETING_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
+      localStorage.setItem(
+        'chimeMeeting',
+        JSON.stringify({
           meetingId: jsonCreateMeeting.meeting.MeetingId,
           attendeeName,
         }),
-      });
-      const jsonJoinMeeting = await resJoinMeeting.json();
-
-      const configuration = new MeetingSessionConfiguration(
-        jsonJoinMeeting.meeting,
-        jsonJoinMeeting.attendee,
       );
 
-      // Pass JoinInfo to Chime meetingManager
-      await meetingManager.join(configuration);
-
-      // Start session (needed to actually connect media)
-      await meetingManager.start();
+      navigate(
+        generateRouteParams(ROUTES.MEETING_ROOM, {
+          meetingId: jsonCreateMeeting.meeting.MeetingId,
+        }),
+      );
 
       setIsLoading(false);
     },
-    [meetingManager],
+    [navigate],
   );
 
   return (
