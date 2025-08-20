@@ -24,16 +24,7 @@ function ControlBar() {
 
   const cameraButtonProps: ControlBarButtonProps = {
     icon: isVideoEnabled ? <Camera /> : <Camera disabled />,
-    popOver: [
-      {
-        onClick: () => console.log('camera popover option 1'),
-        children: <span>Some option text</span>,
-      },
-      {
-        onClick: () => console.log('camera popover option 2'),
-        children: <span>More option text</span>,
-      },
-    ],
+    popOverPlacement: 'bottom-start',
     onClick: async () => await toggleVideo(),
     label: 'Camera',
   };
@@ -53,16 +44,6 @@ function ControlBar() {
   const volumeButtonProps: ControlBarButtonProps = {
     icon: <Sound />,
     onClick: () => console.log('Volume button clicked'),
-    popOver: [
-      {
-        onClick: () => console.log('volume popover option 1'),
-        children: <span>Some option text</span>,
-      },
-      {
-        onClick: () => console.log('volume popover option 2'),
-        children: <span>More option text</span>,
-      },
-    ],
     label: 'Volume',
   };
 

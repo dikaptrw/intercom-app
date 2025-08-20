@@ -44,7 +44,7 @@ const VideoGrid = () => {
   return (
     <div
       className={cn(
-        'grid gap-4 items-center justify-center w-full h-[calc(100vh-80px)] p-4 border-b border-white/5',
+        'grid gap-4 items-center justify-center w-full h-[calc(100vh-80px)] !p-4 !border-b !border-white/5',
         tiles.length > 0 ? 'grid-cols-2' : 'grid-cols-1',
       )}
     >

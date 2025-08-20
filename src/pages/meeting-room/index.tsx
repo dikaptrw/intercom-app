@@ -1,4 +1,5 @@
 import {
+  GlobalStyles,
   MeetingStatus,
   useAudioVideo,
   useMeetingManager,
@@ -87,6 +88,8 @@ function MeetingRoomPage() {
 
   return (
     <div className="bg-[#1b1c20]">
+      <GlobalStyles />
+
       {/* Renders all active meeting tiles, including your local video */}
       <VideoGrid />
       {/* <div className="h-[calc(100vh-80px)] p-4">
