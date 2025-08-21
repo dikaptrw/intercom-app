@@ -1,8 +1,10 @@
+const AWS_API_BASE_URL =
+  'https://ms7wmqlv2h.execute-api.ap-southeast-1.amazonaws.com/dev';
+
 export const AWS_CHIME_API = {
   meeting: {
-    create:
-      'https://1hvujykjr9.execute-api.ap-southeast-1.amazonaws.com/dev/create-meeting',
-    join: 'https://1hvujykjr9.execute-api.ap-southeast-1.amazonaws.com/dev/join-meeting',
-    get: 'https://1hvujykjr9.execute-api.ap-southeast-1.amazonaws.com/dev/get-meeting',
+    create: AWS_API_BASE_URL + '/create-meeting',
+    join: AWS_API_BASE_URL + '/join-meeting',
+    get: AWS_API_BASE_URL + '/get-meeting',
   },
 };
