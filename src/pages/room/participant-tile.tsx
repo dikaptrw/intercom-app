@@ -6,6 +6,7 @@ import {
   RosterAttendee,
   useLocalVideo,
 } from 'amazon-chime-sdk-component-library-react';
+import { useRef } from 'react';
 
 export interface ParticipantTileProps {
   participant?: Participant;
@@ -23,6 +24,10 @@ const FallbackInitials = ({ name }: { name: string }) => {
 
 const ParticipantTile = ({ participant, className }: ParticipantTileProps) => {
   const { isVideoEnabled } = useLocalVideo();
+
+  const handleEnterPiP = async () => {
+    participant?.tileState?.boundVideoElement?.requestPictureInPicture();
+  };
 
   return (
     <div
@@ -50,6 +55,30 @@ const ParticipantTile = ({ participant, className }: ParticipantTileProps) => {
           )}
         </div>
       </div>
+
+      {/* picture in picture */}
+      <button
+        className="absolute top-2 right-2 z-10 bg-white/20 hover:bg-white/30 p-2 rounded-full"
+        onClick={handleEnterPiP}
+        title="Enter Picture-in-Picture"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6 text-white"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M15 10V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-5m-4-4h4m0 0v4m0-4l3.5-3.5M19 10l3.5-3.5M19 10l3.5 3.5M19 10l3.5-3.5"
+          />
+        </svg>
+      </button>
+
+      {/* subtitle */}
 
       <div className="[&_.ch-subtitle]:!text-sm absolute bottom-2 left-3 right-2 bg-opacity-50 text-white p-1 font-medium">
         <RosterAttendee

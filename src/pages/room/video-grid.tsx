@@ -11,7 +11,8 @@ const VideoGrid = () => {
     <div className="h-[calc(100vh-80px)] w-full flex items-center justify-center">
       <div
         className={cn(
-          'max-w-[1240px] h-[calc(100vh-80px)] grid gap-4 items-center justify-center w-full !p-4 !border-b !border-white/5',
+          'h-[calc(100vh-80px)] grid gap-4 items-center justify-center w-full !p-4 !border-b !border-white/5',
+          participants.length > 1 ? 'max-w-[1240px]' : '',
           participants.length <= 1
             ? 'grid-cols-1'
             : participants.length === 2
@@ -37,7 +38,11 @@ const VideoGrid = () => {
               )}
             >
               <ParticipantTile
-                className={cn(isLastRowStart ? 'max-w-[calc(50%-8px)]' : '')}
+                className={cn(
+                  isLastRowStart && participants.length > 1
+                    ? 'max-w-[calc(50%-8px)]'
+                    : '',
+                )}
                 participant={participant}
               />
             </div>
