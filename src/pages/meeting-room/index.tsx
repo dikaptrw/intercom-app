@@ -94,18 +94,26 @@ function MeetingRoomPage() {
     <div className="bg-[#1b1c20]">
       <GlobalStyles />
 
-      <button
-        className="cursor-pointer absolute top-8 right-8 z-[50] bg-gray-800 px-3 py-2 text-sm rounded flex items-center"
-        onClick={() =>
-          setVideoType(videoType === 'custom' ? 'video-tile-grid' : 'custom')
-        }
-      >
-        <span className="text-white">
-          {videoType === 'custom'
-            ? 'Switch to Video Tile Grid'
-            : 'Switch to Custom View'}
-        </span>
-      </button>
+      <div className="absolute top-8 right-8 z-[50] flex items-center gap-4">
+        <div className="text-white">
+          Current View:{' '}
+          <span className="ml-1 font-semibold">
+            {videoType === 'custom' ? 'Custom View' : 'Video Tile Grid'}
+          </span>
+        </div>
+        <button
+          className="cursor-pointer bg-gray-800 px-3 py-2 text-sm rounded flex items-center"
+          onClick={() =>
+            setVideoType(videoType === 'custom' ? 'video-tile-grid' : 'custom')
+          }
+        >
+          <span className="text-white">
+            {videoType === 'custom'
+              ? 'Switch to Video Tile Grid'
+              : 'Switch to Custom View'}
+          </span>
+        </button>
+      </div>
 
       {videoType === 'custom' && <VideoGrid />}
 
