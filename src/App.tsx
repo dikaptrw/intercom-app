@@ -9,7 +9,7 @@ import {
 } from 'react-router-dom';
 import { BASE_ROUTES, ROUTES } from '@/utils/constants/routes';
 import LoginPage from './pages/join';
-import MeetingRoomPage from './pages/meeting-room';
+import RoomPage from './pages/room';
 import { ThemeProvider } from 'styled-components';
 import {
   darkTheme,
@@ -37,7 +37,7 @@ const router = createBrowserRouter(
           path={BASE_ROUTES.MEETING_ROOM}
           element={
             <RoomGuard>
-              <MeetingRoomPage />
+              <RoomPage />
             </RoomGuard>
           }
         />
