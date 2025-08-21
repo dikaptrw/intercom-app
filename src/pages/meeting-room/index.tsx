@@ -54,7 +54,9 @@ function MeetingRoomPage() {
       });
 
       if (resJoinMeeting.status === 400) {
-        toast.error(`Error joining meeting, please try rejoining the meeting.`);
+        toast.error(
+          `Meeting with ID \"${meetingId}\" does not exist or has already ended.`,
+        );
         navigate(ROUTES.JOIN);
         return;
       }
