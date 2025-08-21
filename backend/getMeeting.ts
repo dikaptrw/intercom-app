@@ -1,6 +1,7 @@
 import type { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
 import { ChimeSDKMeetings } from '@aws-sdk/client-chime-sdk-meetings';
-import { DEFAULT_REGION } from './constants.js';
+import { DEFAULT_REGION } from './utils/constants.js';
+import { buildResponse } from './utils/functions.js';
 
 const chime = new ChimeSDKMeetings({ region: DEFAULT_REGION });
 
@@ -34,53 +35,27 @@ export const handler = async (
       meetingResponse = await chime.getMeeting({
         MeetingId: meetingId,
       });
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      return {
-        statusCode: 400,
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Credentials': true,
-          'Access-Control-Allow-Origin': 'http://localhost:5173',
-        },
-        body: JSON.stringify({
-          code: 'MEETING_NOT_FOUND',
-          message:
-            err.message || `Meeting with id "${meetingId}" does not exist`,
-        }),
-      };
+      return buildResponse(event, 400, {
+        code: 'MEETING_NOT_FOUND',
+        message: err.message || `Meeting with id "${meetingId}" does not exist`,
+      });
     }
 
-    return {
-      statusCode: 200,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Credentials': true,
-        'Access-Control-Allow-Origin': 'http://localhost:5173',
-      },
-      body: JSON.stringify({
-        message: 'Meeting fetched successfully',
-        meeting: meetingResponse.Meeting,
-      }),
-    };
+    return buildResponse(event, 200, {
+      message: 'Meeting fetched successfully',
+      meeting: meetingResponse.Meeting,
+    });
   } catch (err) {
     console.error('Error fetching meeting:', err);
 
-    return {
-      statusCode: 500,
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Credentials': true,
-        'Access-Control-Allow-Origin': 'http://localhost:5173',
-      },
-      body: JSON.stringify({
-        error:
-          err instanceof Error
-            ? err.message
-            : typeof err === 'string'
-              ? err
-              : JSON.stringify(err),
-      }),
-    };
+    return buildResponse(event, 500, {
+      error:
+        err instanceof Error
+          ? err.message
+          : typeof err === 'string'
+            ? err
+            : JSON.stringify(err),
+    });
   }
 };
