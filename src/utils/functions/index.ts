@@ -30,3 +30,26 @@ export function truncateString(
 
   return str.slice(0, maxLength);
 }
+
+/**
+ * Extracts the initials from a given name.
+ *
+ * If the name contains multiple words, it returns the first character of the first two words.
+ * If the name is a single word, it returns the first two letters of that word.
+ *
+ * @param name - The input name as a string.
+ * @returns A string containing the initials.
+ */
+export function getInitials(name: string): string {
+  // Split the name into words and filter out any empty strings (e.g., extra spaces)
+  const words: string[] = name.split(' ').filter((word) => word.length > 0);
+
+  // Check if the name contains multiple words
+  if (words.length > 1) {
+    // Return the first letter of the first two words
+    return words[0][0] + words[1][0];
+  }
+
+  // For a single-word name, return the first two letters.
+  return words[0].slice(0, 2);
+}

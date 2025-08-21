@@ -18,7 +18,7 @@ function RoomPage() {
   console.log({ devices, selectedDevice, audioVideo });
 
   return (
-    <div className="bg-[#1b1c20]">
+    <div className="bg-room-primary">
       <GlobalStyles />
 
       <div className="absolute top-8 right-8 z-[50] flex items-center gap-4">

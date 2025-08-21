@@ -8,17 +8,17 @@ import {
   ControlBar as ControlBarChime,
   Laptop,
   useLocalVideo,
-  useLocalAudioOutput,
+  useToggleLocalMute,
 } from 'amazon-chime-sdk-component-library-react';
 import type { ControlBarButtonProps } from 'amazon-chime-sdk-component-library-react/lib/components/ui/ControlBar/ControlBarButton';
 
 function ControlBar() {
   const { isVideoEnabled, toggleVideo } = useLocalVideo();
-  const { isAudioOn, toggleAudio } = useLocalAudioOutput();
+  const { muted, toggleMute } = useToggleLocalMute();
 
   const microphoneButtonProps: ControlBarButtonProps = {
-    icon: !isAudioOn ? <Microphone muted /> : <Microphone />,
-    onClick: () => toggleAudio(),
+    icon: muted ? <Microphone muted /> : <Microphone />,
+    onClick: () => toggleMute(),
     label: 'Mute',
   };
 
