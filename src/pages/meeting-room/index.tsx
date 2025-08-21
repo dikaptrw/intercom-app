@@ -55,7 +55,7 @@ function MeetingRoomPage() {
 
       if (resJoinMeeting.status === 400) {
         toast.error(
-          `Meeting with ID \"${meetingId}\" does not exist or has already ended.`,
+          `The meeting room you are trying to access does not exist or has already ended.`,
         );
         navigate(ROUTES.JOIN);
         return;
