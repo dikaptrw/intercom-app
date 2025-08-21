@@ -17,6 +17,7 @@ import {
 } from 'amazon-chime-sdk-component-library-react';
 import RoomGuard from './guards/RoomGuard';
 import MainLayout from './layouts/MainLayout';
+import { MAIN_ROUTES } from './utils/functions/routes';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -41,6 +42,8 @@ const router = createBrowserRouter(
           }
         />
       </Route>
+
+      <Route path="*" element={<Navigate to={MAIN_ROUTES.ROOT} />} />
     </>,
   ),
 );

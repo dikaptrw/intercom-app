@@ -4,7 +4,7 @@ import { generateRootPath } from '@/utils/functions/routes';
 
 export const BASE_ROUTES = {
   JOIN: 'join',
-  MEETING_ROOM: ':meetingId',
+  MEETING_ROOM: 'room/:meetingId',
 };
 
 // Please sort the data alphabetically AAAA-ZZZZ
