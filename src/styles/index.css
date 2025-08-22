@@ -81,6 +81,7 @@
   --sidebar-ring: oklch(0.708 0 0);
 
   --room-control-height: 100px;
+  --room-header-height: 50px;
 
   --room-background: #131314;
   --room-secondary: #333537;
@@ -89,6 +90,7 @@
 
   @media (width >= 64rem /* 1024px */) {
     --room-control-height: 80px;
+    --room-header-height: 0px;
   }
 }
 

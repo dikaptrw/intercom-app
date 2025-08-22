@@ -18,7 +18,7 @@ export interface ParticipantTileProps {
 const FallbackInitials = ({ name }: { name: string }) => {
   const initials = getInitials(name);
   return (
-    <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 z-[5] bg- text-white p-1 rounded-full h-[20%] md:h-[30%] aspect-square flex items-center justify-center font-medium uppercase [container-type:inline-size] bg-room-background">
+    <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 z-[5] text-white p-1 rounded-full h-[20%] md:h-[30%] aspect-square flex items-center justify-center font-medium uppercase [container-type:inline-size] bg-room-background/60">
       <span className="!text-[35cqw] md:!text-[40cqw]">{initials}</span>
     </div>
   );

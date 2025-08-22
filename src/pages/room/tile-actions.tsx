@@ -18,7 +18,7 @@ function TileActions({ attendeeId, togglePiP }: TileActionsProps) {
   const isLocal = attendeeId === localAttendeeId;
 
   return (
-    <div className="bg-black/40 rounded-full flex items-center [&>button]:w-12 [&>button]:h-12 [&>button]:flex [&>button]:items-center [&>button]:justify-center [&>button]:text-white [&>button]:hover:bg-black/40 [&>button]:rounded-full [&>button]:cursor-pointer">
+    <div className="bg-room-background/90 hover:bg-room-background transition-colors duration-300 rounded-full flex items-center [&>button]:w-12 [&>button]:h-12 [&>button]:flex [&>button]:items-center [&>button]:justify-center [&>button]:text-white [&>button]:hover:bg-white/7 [&>button]:rounded-full [&>button]:cursor-pointer">
       <button>
         <Pin className="w-6 h-6" />
       </button>
