@@ -1,5 +1,5 @@
 const AWS_API_BASE_URL =
-  'https://ms7wmqlv2h.execute-api.ap-southeast-1.amazonaws.com/dev';
+  'https://zfemr4c3qh.execute-api.ap-southeast-1.amazonaws.com/dev';
 
 export const AWS_CHIME_API = {
   meeting: {
