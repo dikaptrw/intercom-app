@@ -40,8 +40,10 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
+  --color-room-background: var(--room-background);
+  --color-room-secondary: var(--room-secondary);
   --color-room-primary: var(--room-primary);
-  --color-room-foreground: var(--room-foreground);
+  --color-room-primary-foreground: var(--room-primary-foreground);
 }
 
 :root {
@@ -78,8 +80,14 @@
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
 
-  --room-primary: #1b1c20;
-  --room-foreground: #121214;
+  --room-control-height: 80px;
+  --room-background: #131314;
+  --room-secondary: #333537;
+  --room-primary: #29dcf8;
+  --room-primary-foreground: #3f4140;
+
+  /* --room-primary: #1b1c20;
+  --room-foreground: #121214; */
 }
 
 .dark {

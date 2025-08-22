@@ -19,8 +19,8 @@ function RoomGuard({ children }: { children: ReactNode }) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    document.body.classList.add('!bg-room-primary');
-    document.documentElement.classList.add('!bg-room-primary');
+    document.body.classList.add('!bg-room-background');
+    document.documentElement.classList.add('!bg-room-background');
   }, []);
 
   useEffect(() => {
