@@ -80,14 +80,16 @@
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
 
-  --room-control-height: 80px;
+  --room-control-height: 100px;
+
   --room-background: #131314;
   --room-secondary: #333537;
   --room-primary: #29dcf8;
   --room-primary-foreground: #3f4140;
 
-  /* --room-primary: #1b1c20;
-  --room-foreground: #121214; */
+  @media (width >= 64rem /* 1024px */) {
+    --room-control-height: 80px;
+  }
 }
 
 .dark {

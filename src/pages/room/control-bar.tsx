@@ -7,6 +7,7 @@ import {
   useToggleLocalMute,
 } from 'amazon-chime-sdk-component-library-react';
 import {
+  EllipsisVertical,
   Info,
   MessagesSquare,
   Mic,
@@ -18,6 +19,7 @@ import {
   VideoOff,
   Volume2,
 } from 'lucide-react';
+import { Fragment } from 'react/jsx-runtime';
 
 function ControlBar() {
   const meetingManager = useMeetingManager();
@@ -54,6 +56,14 @@ function ControlBar() {
       icon: <MonitorUp />,
       onClick: () => console.log('Volume button clicked'),
       label: 'Share Screen',
+      className: 'hidden lg:block',
+    },
+    {
+      icon: <EllipsisVertical />,
+      onClick: () => console.log('Volume button clicked'),
+      label: 'Share Screen',
+      className: 'block lg:hidden px-',
+      buttonClassName: 'px-2',
     },
     {
       icon: <Phone className="rotate-[135deg]" />,
@@ -83,7 +93,7 @@ function ControlBar() {
 
   return (
     <div className="h-[var(--room-control-height)] px-5 grid grid-cols-12 items-center">
-      <div className="col-span-3 text-white flex items-center gap-4">
+      <div className="hidden lg:flex col-span-3 text-white items-center gap-4">
         <div>{time24}</div>
         <div className="h-6 w-[1px] bg-white/20 ml-1"></div>
         <div>{externalMeetingId}</div>
@@ -91,33 +101,43 @@ function ControlBar() {
 
       <div
         className={cn(
-          'col-span-6 flex justify-center items-center gap-2 text-white text-xs rounded-lg',
+          'col-span-12 lg:col-span-6 flex justify-center items-center',
         )}
       >
-        {mainControlItems.map((item, index) => {
-          return (
-            <div
-              className="flex flex-col items-center justify-center gap-1"
-              key={index}
-            >
-              <button
-                className={cn(
-                  'cursor-pointer py-3 px-4 rounded-full flex justify-center items-center bg-[#323537] hover:bg-[#494c4e] transition-colors duration-300',
-                  '[&>svg]:w-6 [&>svg]:h-6 [&>svg]:scale-90',
-                  item.type === 'destructive'
-                    ? 'bg-[#DA352F] hover:bg-[#ea4e48]'
-                    : '',
+        <div className="flex items-center justify-center p-3 lg:p-0 gap-2 text-white text-xs rounded-xl bg-[#1F1F21] lg:bg-transparent">
+          {mainControlItems.map((item, index) => {
+            return (
+              <Fragment key={index}>
+                {item.type === 'destructive' && (
+                  <div className="lg:hidden h-6 w-[1px] bg-white/20"></div>
                 )}
-                onClick={item.onClick}
-              >
-                {item.icon}
-              </button>
-            </div>
-          );
-        })}
+                <div
+                  className={cn(
+                    'flex flex-col items-center justify-center gap-1',
+                    item.className,
+                  )}
+                >
+                  <button
+                    className={cn(
+                      'cursor-pointer py-3 px-4 rounded-full flex justify-center items-center bg-[#323537] hover:bg-[#494c4e] transition-colors duration-300',
+                      '[&>svg]:w-5 [&>svg]:h-5 lg:[&>svg]:w-6 lg:[&>svg]:h-6 [&>svg]:scale-90',
+                      item.type === 'destructive'
+                        ? 'bg-[#DA352F] hover:bg-[#ea4e48]'
+                        : '',
+                      item.buttonClassName,
+                    )}
+                    onClick={item.onClick}
+                  >
+                    {item.icon}
+                  </button>
+                </div>
+              </Fragment>
+            );
+          })}
+        </div>
       </div>
 
-      <div className="col-span-3 flex justify-end">
+      <div className="hidden lg:flex col-span-3 justify-end">
         {rightSideControlItems.map((item, index) => {
           return (
             <div
