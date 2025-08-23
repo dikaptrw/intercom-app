@@ -14,8 +14,23 @@ export function buildResponse(
     'Access-Control-Allow-Credentials': 'true',
   };
 
-  if (origin && ALLOWED_ORIGINS.includes(origin)) {
-    headers['Access-Control-Allow-Origin'] = origin;
+  if (origin) {
+    try {
+      const url = new URL(origin);
+
+      // allow any origin with port 5173
+      if (url.port === '5173' && url.protocol === 'http:') {
+        headers['Access-Control-Allow-Origin'] = origin;
+      }
+
+      // also allow specific deployed domains
+      if (ALLOWED_ORIGINS.includes(origin)) {
+        headers['Access-Control-Allow-Origin'] = origin;
+      }
+    } catch (err) {
+      console.error('Error:', err);
+      // ignore invalid origin header
+    }
   }
 
   return {
