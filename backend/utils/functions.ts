@@ -18,6 +18,11 @@ export function buildResponse(
     try {
       const url = new URL(origin);
 
+      // allow all ngrok HTTPS domains
+      if (url.hostname.endsWith('.ngrok-free.app')) {
+        headers['Access-Control-Allow-Origin'] = origin;
+      }
+
       // allow any origin with port 5173
       if (url.port === '5173' && url.protocol === 'http:') {
         headers['Access-Control-Allow-Origin'] = origin;
