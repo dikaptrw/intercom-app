@@ -6,4 +6,5 @@ export type Participant = {
   tileId: number | null;
   isLocal: boolean;
   tileState?: VideoTileState | null;
+  isPinned?: boolean;
 };
