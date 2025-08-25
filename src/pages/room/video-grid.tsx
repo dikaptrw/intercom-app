@@ -28,7 +28,7 @@ const VideoGrid = () => {
   const { videoEnabled } = useAttendeeStatus(localAttendeeId || '');
 
   return (
-    <div className="relative h-[calc(100dvh-var(--room-footer-height)-var(--room-header-height))] w-full flex items-center justify-center px-8 pb-0 pt-0 lg:pt-4">
+    <div className="relative h-[calc(100dvh-var(--room-footer-height)-var(--room-header-height))] w-full flex items-center justify-center px-8 md:px-4 pb-0 pt-0 lg:pt-4">
       {(isTablet || isMobile) && allParticipants.length > 1 && (
         <div
           className={cn(
