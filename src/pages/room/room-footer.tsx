@@ -21,7 +21,7 @@ import {
 } from 'lucide-react';
 import { Fragment } from 'react/jsx-runtime';
 
-function ControlBar() {
+function RoomFooter() {
   const meetingManager = useMeetingManager();
   const time24 = useClock({ format: 24 });
   const { toggleVideo } = useLocalVideo();
@@ -92,7 +92,7 @@ function ControlBar() {
   ];
 
   return (
-    <div className="h-[var(--room-control-height)] px-5 grid grid-cols-12 items-center">
+    <div className="h-[var(--room-footer-height)] px-5 grid grid-cols-12 items-center">
       <div className="hidden lg:flex col-span-3 text-white items-center gap-4">
         <div>{time24}</div>
         <div className="h-6 w-[1px] bg-white/20 ml-1"></div>
@@ -161,4 +161,4 @@ function ControlBar() {
   );
 }
 
-export default ControlBar;
+export default RoomFooter;

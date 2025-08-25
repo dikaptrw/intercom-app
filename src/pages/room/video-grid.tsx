@@ -8,10 +8,10 @@ const VideoGrid = () => {
   console.log('Participants:', participants);
 
   return (
-    <div className="h-[calc(100dvh-var(--room-control-height)-var(--room-header-height))] w-full flex items-center justify-center">
+    <div className="h-[calc(100dvh-var(--room-footer-height)-var(--room-header-height))] w-full flex items-center justify-center">
       <div
         className={cn(
-          'h-[calc(100dvh-var(--room-control-height)-var(--room-header-height))] grid gap-4 items-center justify-center w-full px-4 pb-0 pt-0 lg:pt-4 grid-cols-1',
+          'h-[calc(100dvh-var(--room-footer-height)-var(--room-header-height))] grid gap-4 items-center justify-center w-full px-4 pb-0 pt-0 lg:pt-4 grid-cols-1',
           participants.length > 1 ? 'max-w-[1240px]' : '',
           participants.length <= 1
             ? 'md:grid-cols-1'

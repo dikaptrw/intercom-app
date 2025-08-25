@@ -1,4 +1,4 @@
-import ControlBar from './control-bar';
+import RoomFooter from './room-footer';
 import RoomHeader from './room-header';
 import VideoGrid from './video-grid';
 
@@ -7,7 +7,7 @@ function RoomPage() {
     <div className="bg-room-background">
       <RoomHeader />
       <VideoGrid />
-      <ControlBar />
+      <RoomFooter />
     </div>
   );
 }
