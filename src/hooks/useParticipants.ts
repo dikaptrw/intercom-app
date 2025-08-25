@@ -4,7 +4,7 @@ import {
   useRosterState,
 } from 'amazon-chime-sdk-component-library-react';
 import type { VideoTileState } from 'amazon-chime-sdk-js';
-import type { Participant } from '@/utils/constants/meeting';
+import type { Participant } from '@/utils/types/meeting';
 
 export function useParticipants() {
   const { roster } = useRosterState();

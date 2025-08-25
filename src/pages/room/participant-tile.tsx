@@ -1,4 +1,4 @@
-import type { Participant } from '@/utils/constants/meeting';
+import type { Participant } from '@/utils/types/meeting';
 import { cn, getInitials } from '@/utils/functions';
 import {
   LocalVideo,
