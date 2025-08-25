@@ -28,5 +28,5 @@ export function useToggleCameraMode() {
     }
   };
 
-  return { toggleCameraMode };
+  return { toggleCameraMode, isCanToggleCameraMode: devices.length > 1 };
 }

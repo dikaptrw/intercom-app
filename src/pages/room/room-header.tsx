@@ -7,7 +7,7 @@ import { ChevronDown, Info, SwitchCamera } from 'lucide-react';
 
 function RoomHeader() {
   const meetingManager = useMeetingManager();
-  const { toggleCameraMode } = useToggleCameraMode();
+  const { toggleCameraMode, isCanToggleCameraMode } = useToggleCameraMode();
 
   const externalMeetingId =
     meetingManager.meetingSessionConfiguration?.externalMeetingId;
@@ -26,7 +26,7 @@ function RoomHeader() {
         <button className="text-white">
           <Info className="w-5 h-5" />
         </button>
-        {videoEnabled && (
+        {videoEnabled && isCanToggleCameraMode && (
           <button onClick={toggleCameraMode} className="text-white">
             <SwitchCamera className="w-5 h-5" />
           </button>
