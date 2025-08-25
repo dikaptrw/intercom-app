@@ -1,17 +1,52 @@
 import { cn } from '@/utils/functions';
 import ParticipantTile from './participant-tile';
 import { useParticipants } from '@/hooks/useParticipants';
+import { useMemo } from 'react';
+import type { Participant } from '@/utils/types/meeting';
+import { useDevice } from '@/hooks/useDevice';
+import {
+  useAttendeeStatus,
+  useMeetingManager,
+} from 'amazon-chime-sdk-component-library-react';
 
 const VideoGrid = () => {
-  const participants = useParticipants();
+  const { participants: allParticipants, localParticipant } = useParticipants();
+  const meetingManager = useMeetingManager();
+  const { isMobile, isTablet } = useDevice();
 
-  console.log('Participants:', participants);
+  const localAttendeeId =
+    meetingManager.meetingSession?.configuration.credentials?.attendeeId;
+
+  const participants = useMemo<Participant[]>(() => {
+    if ((isTablet || isMobile) && allParticipants.length > 1) {
+      return allParticipants.filter((p) => p.attendeeId !== localAttendeeId);
+    }
+
+    return allParticipants;
+  }, [isMobile, isTablet, localAttendeeId, allParticipants]);
+
+  const { videoEnabled } = useAttendeeStatus(localAttendeeId || '');
 
   return (
-    <div className="h-[calc(100dvh-var(--room-footer-height)-var(--room-header-height))] w-full flex items-center justify-center">
+    <div className="relative h-[calc(100dvh-var(--room-footer-height)-var(--room-header-height))] w-full flex items-center justify-center px-8 pb-0 pt-0 lg:pt-4">
+      {(isTablet || isMobile) && allParticipants.length > 1 && (
+        <div
+          className={cn(
+            'absolute right-4 bottom-13 z-[20]',
+            videoEnabled ? 'w-[120px] h-[180px]' : 'w-[100px] h-[80px]',
+          )}
+        >
+          <ParticipantTile
+            simpleUi
+            className={cn('shadow-2xl border border-black/40')}
+            participant={localParticipant}
+          />
+        </div>
+      )}
+
       <div
         className={cn(
-          'h-[calc(100dvh-var(--room-footer-height)-var(--room-header-height))] grid gap-4 items-center justify-center w-full px-4 pb-0 pt-0 lg:pt-4 grid-cols-1',
+          'h-full grid gap-4 items-center justify-center w-full grid-cols-1',
           participants.length > 1 ? 'max-w-[1240px]' : '',
           participants.length <= 1
             ? 'md:grid-cols-1'

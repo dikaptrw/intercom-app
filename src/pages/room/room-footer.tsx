@@ -1,5 +1,6 @@
 import { useClock } from '@/hooks/useClock';
 import { cn } from '@/utils/functions';
+import type { ControlItem } from '@/utils/types/meeting';
 import {
   useAttendeeStatus,
   useLocalVideo,
@@ -7,7 +8,6 @@ import {
   useToggleLocalMute,
 } from 'amazon-chime-sdk-component-library-react';
 import {
-  EllipsisVertical,
   Info,
   MessagesSquare,
   Mic,
@@ -35,7 +35,7 @@ function RoomFooter() {
   const externalMeetingId =
     meetingManager.meetingSessionConfiguration?.externalMeetingId;
 
-  const mainControlItems = [
+  const mainControlItems: ControlItem[] = [
     {
       icon: <Volume2 />,
       onClick: () => console.log('Volume button clicked'),
@@ -48,7 +48,6 @@ function RoomFooter() {
     },
     {
       icon: videoEnabled ? <Video /> : <VideoOff />,
-      popOverPlacement: 'bottom-start',
       onClick: async () => await toggleVideo(),
       label: 'Camera',
     },
@@ -57,13 +56,6 @@ function RoomFooter() {
       onClick: () => console.log('Volume button clicked'),
       label: 'Share Screen',
       className: 'hidden lg:block',
-    },
-    {
-      icon: <EllipsisVertical />,
-      onClick: () => console.log('Volume button clicked'),
-      label: 'Share Screen',
-      className: 'block lg:hidden px-',
-      buttonClassName: 'px-2',
     },
     {
       icon: <Phone className="rotate-[135deg]" />,

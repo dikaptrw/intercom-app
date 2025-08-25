@@ -13,18 +13,23 @@ import TileActions from './tile-actions';
 export interface ParticipantTileProps {
   participant?: Participant;
   className?: string;
+  simpleUi?: boolean;
 }
 
 const FallbackInitials = ({ name }: { name: string }) => {
   const initials = getInitials(name);
   return (
-    <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 z-[5] text-white p-1 rounded-full h-[20%] md:h-[30%] aspect-square flex items-center justify-center font-medium uppercase [container-type:inline-size] bg-room-background/60">
+    <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 z-[5] text-white p-1 rounded-full shrink-0 w-[35%] sm:w-auto sm:h-[20%] md:h-[30%] aspect-square flex items-center justify-center font-medium uppercase [container-type:inline-size] bg-room-background/60">
       <span className="!text-[35cqw] md:!text-[40cqw]">{initials}</span>
     </div>
   );
 };
 
-const ParticipantTile = ({ participant, className }: ParticipantTileProps) => {
+const ParticipantTile = ({
+  participant,
+  className,
+  simpleUi = false,
+}: ParticipantTileProps) => {
   const { isVideoEnabled } = useLocalVideo();
 
   const { isPiP, togglePiP } = usePictureInPicture({
@@ -40,12 +45,14 @@ const ParticipantTile = ({ participant, className }: ParticipantTileProps) => {
     >
       <div className="flex items-center justify-center w-full h-full">
         {/* tile actions */}
-        <div className="absolute opacity-0 group-hover/participant:opacity-100 transition-opacity duration-300 left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 z-[9]">
-          <TileActions
-            attendeeId={participant?.attendeeId || ''}
-            togglePiP={togglePiP}
-          />
-        </div>
+        {!simpleUi && (
+          <div className="absolute opacity-0 group-hover/participant:opacity-100 transition-opacity duration-300 left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 z-[9]">
+            <TileActions
+              attendeeId={participant?.attendeeId || ''}
+              togglePiP={togglePiP}
+            />
+          </div>
+        )}
 
         <AnimatePresence>
           {isPiP && (
@@ -88,8 +95,11 @@ const ParticipantTile = ({ participant, className }: ParticipantTileProps) => {
         </div>
       </div>
 
-      <div className="[&_.ch-subtitle]:!text-sm absolute z-[11] bottom-1.5 left-5 right-3 bg-opacity-50 text-white p-1 font-medium">
-        <RosterAttendee attendeeId={participant?.attendeeId || ''} />
+      <div className="[&_.ch-subtitle]:!text-sm absolute z-[11] bottom-0.5 md:bottom-1.5 left-3 md:left-5 right-2 md:right-3 bg-opacity-50 text-white p-1 font-medium">
+        <RosterAttendee
+          simpleUi={simpleUi}
+          attendeeId={participant?.attendeeId || ''}
+        />
       </div>
     </div>
   );

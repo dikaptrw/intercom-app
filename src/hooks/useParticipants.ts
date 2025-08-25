@@ -10,6 +10,7 @@ export function useParticipants() {
   const { roster } = useRosterState();
   const meetingManager = useMeetingManager();
   const [participants, setParticipants] = useState<Participant[]>([]);
+  const [localParticipant, setLocalParticipant] = useState<Participant>();
 
   useEffect(() => {
     if (!meetingManager.audioVideo) return;
@@ -45,6 +46,16 @@ export function useParticipants() {
             tileId = remoteTileState?.tileId ?? null;
           }
 
+          if (isLocal) {
+            setLocalParticipant({
+              attendeeId,
+              name: info?.externalUserId || 'Anonymous',
+              isLocal,
+              tileId,
+              tileState,
+            });
+          }
+
           return {
             attendeeId,
             name: info?.externalUserId || 'Anonymous',
@@ -76,5 +87,5 @@ export function useParticipants() {
     };
   }, [meetingManager, roster]);
 
-  return participants;
+  return { participants, localParticipant };
 }
