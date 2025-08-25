@@ -17,4 +17,7 @@ export default defineConfig({
       '@hooks': path.resolve(__dirname, './src/hooks'),
     },
   },
+  server: {
+    allowedHosts: ['.ngrok-free.app'],
+  },
 });
