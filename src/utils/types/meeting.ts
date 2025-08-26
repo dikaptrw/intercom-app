@@ -17,4 +17,5 @@ export type ControlItem = {
   className?: string;
   buttonClassName?: string;
   type?: string;
+  tooltip?: string;
 };

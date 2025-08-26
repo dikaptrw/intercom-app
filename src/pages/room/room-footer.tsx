@@ -1,3 +1,4 @@
+import { TooltipGroup } from '@/components/ui/tooltip';
 import { useClock } from '@/hooks/useClock';
 import { ROUTES } from '@/utils/constants/routes';
 import { cn } from '@/utils/functions';
@@ -67,26 +68,26 @@ function RoomFooter() {
         if (videoEnabled) await toggleVideo();
         navigate(ROUTES.JOIN);
       },
-      label: 'End',
+      label: 'End Call',
       type: 'destructive',
     },
   ];
 
-  const rightSideControlItems = [
+  const rightSideControlItems: ControlItem[] = [
     {
       icon: <MessagesSquare />,
       onClick: () => console.log('End meeting'),
-      label: 'End',
+      label: 'Chat rooom',
     },
     {
       icon: <UsersRound />,
       onClick: () => console.log('Participants'),
-      label: 'End',
+      label: 'Participants',
     },
     {
       icon: <Info />,
       onClick: () => console.log('End meeting'),
-      label: 'End',
+      label: 'Meeting info',
     },
   ];
 
@@ -107,29 +108,43 @@ function RoomFooter() {
           {mainControlItems.map((item, index) => {
             return (
               <Fragment key={index}>
-                {item.type === 'destructive' && (
-                  <div className="lg:hidden h-6 w-[1px] bg-white/20"></div>
-                )}
-                <div
-                  className={cn(
-                    'flex flex-col items-center justify-center gap-1',
-                    item.className,
-                  )}
+                <TooltipGroup
+                  config={{
+                    trigger: {
+                      asChild: true,
+                    },
+                    content: {
+                      hidden: !item.label,
+                    },
+                  }}
+                  content={item.label}
                 >
-                  <button
-                    className={cn(
-                      'cursor-pointer py-3 px-4 rounded-full flex justify-center items-center bg-[#323537] hover:bg-[#494c4e] transition-colors duration-300',
-                      '[&>svg]:w-5 [&>svg]:h-5 lg:[&>svg]:w-6 lg:[&>svg]:h-6 [&>svg]:scale-90',
-                      item.type === 'destructive'
-                        ? 'bg-[#DA352F] hover:bg-[#ea4e48]'
-                        : '',
-                      item.buttonClassName,
+                  <div className="flex items-center gap-3">
+                    {item.type === 'destructive' && (
+                      <div className="lg:hidden h-6 w-[1px] bg-white/20"></div>
                     )}
-                    onClick={item.onClick}
-                  >
-                    {item.icon}
-                  </button>
-                </div>
+                    <div
+                      className={cn(
+                        'flex flex-col items-center justify-center gap-1',
+                        item.className,
+                      )}
+                    >
+                      <button
+                        className={cn(
+                          'cursor-pointer py-3 px-4 rounded-full flex justify-center items-center bg-[#323537] hover:bg-[#494c4e] transition-colors duration-300',
+                          '[&>svg]:w-5 [&>svg]:h-5 lg:[&>svg]:w-6 lg:[&>svg]:h-6 [&>svg]:scale-90',
+                          item.type === 'destructive'
+                            ? 'bg-[#DA352F] hover:bg-[#ea4e48]'
+                            : '',
+                          item.buttonClassName,
+                        )}
+                        onClick={item.onClick}
+                      >
+                        {item.icon}
+                      </button>
+                    </div>
+                  </div>
+                </TooltipGroup>
               </Fragment>
             );
           })}
@@ -139,20 +154,32 @@ function RoomFooter() {
       <div className="hidden lg:flex col-span-3 justify-end">
         {rightSideControlItems.map((item, index) => {
           return (
-            <div
-              className="flex flex-col items-center justify-center gap-1"
-              key={index}
+            <TooltipGroup
+              config={{
+                trigger: {
+                  asChild: true,
+                },
+                content: {
+                  hidden: !item.label,
+                },
+              }}
+              content={item.label}
             >
-              <button
-                className={cn(
-                  'text-white cursor-pointer w-12 h-12 rounded-full flex justify-center items-center hover:bg-white/10 transition-colors duration-300',
-                  '[&>svg]:w-6 [&>svg]:h-6 [&>svg]:scale-90',
-                )}
-                onClick={item.onClick}
+              <div
+                className="flex flex-col items-center justify-center gap-1"
+                key={index}
               >
-                {item.icon}
-              </button>
-            </div>
+                <button
+                  className={cn(
+                    'text-white cursor-pointer w-12 h-12 rounded-full flex justify-center items-center hover:bg-white/10 transition-colors duration-300',
+                    '[&>svg]:w-6 [&>svg]:h-6 [&>svg]:scale-90',
+                  )}
+                  onClick={item.onClick}
+                >
+                  {item.icon}
+                </button>
+              </div>
+            </TooltipGroup>
           );
         })}
       </div>
