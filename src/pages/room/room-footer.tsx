@@ -64,8 +64,17 @@ function RoomFooter() {
     {
       icon: <Phone className="rotate-[135deg]" />,
       onClick: async () => {
-        if (!muted) await toggleMute();
-        if (videoEnabled) await toggleVideo();
+        await meetingManager.leave();
+
+        // Explicitly stop all devices
+        meetingManager.audioVideo?.stopAudioInput();
+        meetingManager.audioVideo?.stopVideoInput();
+        meetingManager.audioVideo?.stopLocalVideoTile();
+        meetingManager.audioVideo?.stopContentShare();
+
+        // Destroy session completely
+        meetingManager.audioVideo?.stop();
+
         navigate(ROUTES.JOIN);
       },
       label: 'End Call',
