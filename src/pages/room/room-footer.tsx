@@ -1,4 +1,5 @@
 import { useClock } from '@/hooks/useClock';
+import { ROUTES } from '@/utils/constants/routes';
 import { cn } from '@/utils/functions';
 import type { ControlItem } from '@/utils/types/meeting';
 import {
@@ -19,9 +20,11 @@ import {
   VideoOff,
   Volume2,
 } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { Fragment } from 'react/jsx-runtime';
 
 function RoomFooter() {
+  const navigate = useNavigate();
   const meetingManager = useMeetingManager();
   const time24 = useClock({ format: 24 });
   const { toggleVideo } = useLocalVideo();
@@ -59,7 +62,11 @@ function RoomFooter() {
     },
     {
       icon: <Phone className="rotate-[135deg]" />,
-      onClick: () => console.log('End meeting'),
+      onClick: async () => {
+        if (!muted) await toggleMute();
+        if (videoEnabled) await toggleVideo();
+        navigate(ROUTES.JOIN);
+      },
       label: 'End',
       type: 'destructive',
     },
@@ -73,7 +80,7 @@ function RoomFooter() {
     },
     {
       icon: <UsersRound />,
-      onClick: () => console.log('End meeting'),
+      onClick: () => console.log('Participants'),
       label: 'End',
     },
     {
