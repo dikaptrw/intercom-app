@@ -66,6 +66,9 @@ function RoomGuard({ children }: { children: ReactNode }) {
 
       // Start session (needed to actually connect media)
       await meetingManager.start();
+
+      // Mute right after starting
+      meetingManager.audioVideo?.realtimeMuteLocalAudio();
     };
     joinMeeting();
   }, [meetingId, meetingManager, navigate]);
