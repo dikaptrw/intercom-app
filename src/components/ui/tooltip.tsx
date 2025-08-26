@@ -79,12 +79,6 @@ export interface TooltipGroupProps
   className?: string;
 }
 
-// default value for config provider
-const CONFIG_PROVIDER: Omit<TooltipPrimitive.TooltipProviderProps, 'children'> =
-  {
-    delayDuration: 150,
-  };
-
 const TooltipGroup = ({
   children,
   content,
@@ -99,32 +93,24 @@ const TooltipGroup = ({
   ...triggerProps
 }: TooltipGroupProps) => {
   return (
-    <TooltipPrimitive.Provider {...{ ...CONFIG_PROVIDER, ...config?.provider }}>
-      <TooltipPrimitive.Root {...config?.root}>
-        <TooltipPrimitive.Trigger
-          {...config?.trigger}
-          {...triggerProps}
-          className={cn('', className)}
-        >
-          {children}
-        </TooltipPrimitive.Trigger>
-        <TooltipPrimitive.Portal {...config?.portal}>
-          <TooltipPrimitive.Content
-            {...config?.content}
-            className={cn(
-              'z-[100] max-w-[250px] data-[state=delayed-open]:data-[side=top]:animate-slideDownAndFade data-[state=delayed-open]:data-[side=right]:animate-slideLeftAndFade data-[state=delayed-open]:data-[side=left]:animate-slideRightAndFade data-[state=delayed-open]:data-[side=bottom]:animate-slideUpAndFade text-white select-none rounded-[4px] bg-black-3/90 px-[12px] py-[6px] text-[15px] leading-normal shadow-[hsl(206_22%_7%_/_35%)_0px_10px_38px_-10px,_hsl(206_22%_7%_/_20%)_0px_10px_20px_-15px] will-change-[transform,opacity]',
-              contentClassName,
-            )}
-          >
-            {content}
-            <TooltipPrimitive.Arrow
-              {...config?.arrow}
-              className={cn('fill-black-3/90', arrowClassName)}
-            />
-          </TooltipPrimitive.Content>
-        </TooltipPrimitive.Portal>
-      </TooltipPrimitive.Root>
-    </TooltipPrimitive.Provider>
+    <Tooltip {...config?.root}>
+      <TooltipTrigger
+        {...config?.trigger}
+        {...triggerProps}
+        className={cn('', className)}
+      >
+        {children}
+      </TooltipTrigger>
+      <TooltipPrimitive.Portal {...config?.portal}>
+        <TooltipContent {...config?.content} className={cn(contentClassName)}>
+          {content}
+          <TooltipPrimitive.Arrow
+            {...config?.arrow}
+            className={cn('fill-black-3/90', arrowClassName)}
+          />
+        </TooltipContent>
+      </TooltipPrimitive.Portal>
+    </Tooltip>
   );
 };
 
