@@ -57,7 +57,7 @@ function RosterAttendee({
             >
               <Camera
                 disabled={!videoEnabled}
-                className="w-5 h-5 md:w-6 md:h-6"
+                className="w-4 h-4 md:w-5 md:h-5"
               />
             </div>
           </>

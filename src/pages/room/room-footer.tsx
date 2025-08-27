@@ -1,4 +1,5 @@
 import { TooltipGroup } from '@/components/ui/tooltip';
+import { useRoom } from '@/hooks/useRoom';
 import { useClock } from '@/hooks/useClock';
 import { ROUTES } from '@/utils/constants/routes';
 import { cn } from '@/utils/functions';
@@ -30,6 +31,7 @@ function RoomFooter() {
   const time24 = useClock({ format: 24 });
   const { toggleVideo } = useLocalVideo();
   const { muted, toggleMute } = useToggleLocalMute();
+  const { setSideMenu } = useRoom();
 
   const localAttendeeId =
     meetingManager.meetingSession?.configuration.credentials?.attendeeId;
@@ -85,8 +87,10 @@ function RoomFooter() {
   const rightSideControlItems: ControlItem[] = [
     {
       icon: <MessagesSquare />,
-      onClick: () => console.log('End meeting'),
-      label: 'Chat rooom',
+      onClick: () => {
+        setSideMenu((prev) => (prev === 'chat' ? undefined : 'chat'));
+      },
+      label: 'Chat room',
     },
     {
       icon: <UsersRound />,

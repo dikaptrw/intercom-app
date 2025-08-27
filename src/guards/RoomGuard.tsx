@@ -1,3 +1,4 @@
+import { RoomProvider } from '@/contexts/roomContext';
 import { AWS_CHIME_API } from '@/utils/constants/api';
 import { ROUTES } from '@/utils/constants/routes';
 import {
@@ -89,7 +90,11 @@ function RoomGuard({ children }: { children: ReactNode }) {
     );
   }
 
-  return <Fragment>{children}</Fragment>;
+  return (
+    <Fragment>
+      <RoomProvider>{children}</RoomProvider>
+    </Fragment>
+  );
 }
 
 export default RoomGuard;

@@ -8,11 +8,17 @@ import {
   useAttendeeStatus,
   useMeetingManager,
 } from 'amazon-chime-sdk-component-library-react';
+import { useRoom } from '@/hooks/useRoom';
 
-const VideoGrid = () => {
+export interface VideoGridProps {
+  className?: string;
+}
+
+const VideoGrid = ({ className }: VideoGridProps) => {
   const { participants: allParticipants, localParticipant } = useParticipants();
   const meetingManager = useMeetingManager();
-  const { isMobile, isTablet } = useDevice();
+  const { isMobile, isTablet, isDesktop } = useDevice();
+  const { sideMenu } = useRoom();
 
   const localAttendeeId =
     meetingManager.meetingSession?.configuration.credentials?.attendeeId;
@@ -28,7 +34,12 @@ const VideoGrid = () => {
   const { videoEnabled } = useAttendeeStatus(localAttendeeId || '');
 
   return (
-    <div className="relative h-[calc(100dvh-var(--room-footer-height)-var(--room-header-height))] w-full flex items-center justify-center px-8 md:px-4 pb-0 pt-0 lg:pt-4">
+    <div
+      className={cn(
+        'relative flex items-center justify-center px-8 lg:px-4 pb-0 pt-0 lg:pt-4',
+        className,
+      )}
+    >
       {(isTablet || isMobile) && allParticipants.length > 1 && (
         <div
           className={cn(
@@ -50,13 +61,15 @@ const VideoGrid = () => {
           participants.length > 1 ? 'max-w-[1240px]' : '',
           participants.length <= 1
             ? 'md:grid-cols-1'
-            : participants.length === 2
+            : participants.length === 2 && (!sideMenu || isDesktop)
               ? 'md:grid-cols-2'
-              : participants.length <= 4
+              : participants.length <= 4 && (!sideMenu || isDesktop)
                 ? 'md:grid-cols-2'
-                : participants.length <= 6
+                : participants.length <= 6 && (!sideMenu || isDesktop)
                   ? 'md:grid-cols-3'
-                  : 'md:grid-cols-4',
+                  : participants.length > 6 && (!sideMenu || isDesktop)
+                    ? 'md:grid-cols-4'
+                    : '',
         )}
       >
         {participants?.map((participant, i) => {

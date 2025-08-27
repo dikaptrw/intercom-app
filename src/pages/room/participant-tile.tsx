@@ -39,7 +39,7 @@ const ParticipantTile = ({
   return (
     <div
       className={cn(
-        'relative group/participant w-full h-full bg-room-secondary rounded-lg overflow-hidden flex items-center justify-center',
+        'relative group/participant w-full h-full bg-room-secondary rounded-xl overflow-hidden flex items-center justify-center',
         className,
       )}
     >
