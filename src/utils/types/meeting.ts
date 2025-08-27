@@ -19,3 +19,10 @@ export type ControlItem = {
   type?: string;
   tooltip?: string;
 };
+
+export type ChatMessage = {
+  senderId: string;
+  senderName: string;
+  text: string;
+  timestamp: number;
+};

@@ -1,7 +1,6 @@
 import FormGroupInput from '@/components/form-groups/form-group-input';
 import { Button } from '@/components/ui/button';
 import { useRoom } from '@/hooks/useRoom';
-import { useRoomChat } from '@/hooks/useRoomChat';
 import { ERROR_MESSAGE } from '@/utils/constants/errorMessages';
 import { cn } from '@/utils/functions';
 import { SendHorizontal, X } from 'lucide-react';
@@ -17,8 +16,7 @@ interface MessageFormInput {
 }
 
 function RoomChat({ className }: RoomChatProps) {
-  const { messages, sendMessage } = useRoomChat();
-  const { setSideMenu } = useRoom();
+  const { setSideMenu, messages, sendMessage } = useRoom();
 
   const {
     formState: { isValid },
