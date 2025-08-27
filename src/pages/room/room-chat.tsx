@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { useRoom } from '@/hooks/useRoom';
 import { ERROR_MESSAGE } from '@/utils/constants/errorMessages';
 import { cn } from '@/utils/functions';
-import { SendHorizontal, X } from 'lucide-react';
+import { SendHorizontal } from 'lucide-react';
 import { useCallback } from 'react';
 import { Controller, useForm, type SubmitHandler } from 'react-hook-form';
 
@@ -16,7 +16,7 @@ interface MessageFormInput {
 }
 
 function RoomChat({ className }: RoomChatProps) {
-  const { setSideMenu, messages, sendMessage } = useRoom();
+  const { messages, sendMessage } = useRoom();
 
   const {
     formState: { isValid },
@@ -39,25 +39,7 @@ function RoomChat({ className }: RoomChatProps) {
   );
 
   return (
-    <div
-      className={cn(
-        'flex flex-col bg-white rounded-xl w-full h-full flex-1',
-        className,
-      )}
-    >
-      <div className="px-4 py-4 flex items-center justify-between gap-4">
-        <div className="font-medium text-lg">In-call messages</div>
-
-        <Button
-          onClick={() => setSideMenu(undefined)}
-          variant={'ghost'}
-          size={'icon'}
-          className="rounded-full"
-        >
-          <X className="w-5 h-5 size-6" />
-        </Button>
-      </div>
-
+    <div className={cn('flex flex-col flex-1', className)}>
       <div className="px-4">
         <div className="rounded-xl bg-neutral-100 py-2 px-3 text-xs">
           Once you leave the call, you’ll no longer have access to this chat or
