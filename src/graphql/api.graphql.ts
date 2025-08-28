@@ -1,3 +1,5 @@
+// @ts-ignore
+
 import { useQuery, UseQueryOptions } from '@tanstack/react-query';
 import { useFetchData } from '../hooks/useGraphqlFetcher';
 export type Maybe<T> = T | null;

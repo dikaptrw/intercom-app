@@ -17,6 +17,11 @@ const config: CodegenConfig = {
   generates: {
     'src/graphql/api.graphql.ts': {
       plugins: [
+        {
+          add: {
+            content: '// @ts-ignore\n',
+          },
+        },
         'typescript',
         'typescript-operations',
         'typescript-react-query',
