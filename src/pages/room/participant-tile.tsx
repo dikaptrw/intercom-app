@@ -19,7 +19,7 @@ export interface ParticipantTileProps {
 const FallbackInitials = ({ name }: { name: string }) => {
   const initials = getInitials(name);
   return (
-    <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 z-[5] text-white p-1 rounded-full shrink-0 w-[35%] sm:w-auto sm:h-[20%] md:h-[30%] aspect-square flex items-center justify-center font-medium uppercase [container-type:inline-size] bg-room-background/60">
+    <div className="shadow-[0_0_200px_40px_rgba(255,255,255,0.05)] absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 z-[5] text-white p-1 rounded-full shrink-0 w-[35%] sm:w-auto sm:h-[20%] md:h-[30%] aspect-square flex items-center justify-center font-medium uppercase [container-type:inline-size] bg-room-background/60">
       <span className="!text-[35cqw] md:!text-[40cqw]">{initials}</span>
     </div>
   );
@@ -43,6 +43,8 @@ const ParticipantTile = ({
         className,
       )}
     >
+      <div className="absolute inset-0 w-full h-full bg-black/10"></div>
+
       <div className="flex items-center justify-center w-full h-full">
         {/* tile actions */}
         {!simpleUi && (
