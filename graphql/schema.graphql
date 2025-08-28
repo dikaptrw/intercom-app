@@ -1,0 +1,36 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+
+"""
+Directs the executor to defer this fragment when the `if` argument is true or undefined.
+"""
+directive @defer(
+  """
+  Deferred when true or undefined.
+  """
+  if: Boolean = true
+  """
+  Unique name
+  """
+  label: String
+) on FRAGMENT_SPREAD | INLINE_FRAGMENT
+
+type CallSession {
+  id: ID!
+}
+
+type Mutation {
+  call(id: ID!): CallSession!
+}
+
+type Query {
+  session(id: ID!): Boolean!
+  units: [Unit!]
+}
+
+type Unit {
+  id: ID!
+  name: String!
+}
