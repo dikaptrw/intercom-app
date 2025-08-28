@@ -46,12 +46,12 @@ function RoomFooter() {
     {
       icon: muted ? MicOff : Mic,
       onClick: () => toggleMute(),
-      label: 'Mute',
+      label: muted ? 'Unmute' : 'Mute',
     },
     {
       icon: videoEnabled ? Video : VideoOff,
       onClick: async () => await toggleVideo(),
-      label: 'Camera',
+      label: videoEnabled ? 'Turn off camera' : 'Turn on camera',
     },
     // {
     //   icon: MonitorUp,
