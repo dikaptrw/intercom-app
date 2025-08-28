@@ -5,7 +5,7 @@ import {
 } from 'amazon-chime-sdk-component-library-react';
 import { ThemeProvider } from 'styled-components';
 
-function LoginPage() {
+function JoinPage() {
   return (
     <div className="bg-background flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
       <div className="w-full max-w-sm">
@@ -19,4 +19,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default JoinPage;

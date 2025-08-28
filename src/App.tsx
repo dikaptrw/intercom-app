@@ -8,7 +8,7 @@ import {
   RouterProvider,
 } from 'react-router-dom';
 import { BASE_ROUTES, ROUTES } from '@/utils/constants/routes';
-import LoginPage from './pages/join';
+import JoinPage from './pages/join';
 import RoomPage from './pages/room';
 import { ThemeProvider } from 'styled-components';
 import {
@@ -31,7 +31,7 @@ const router = createBrowserRouter(
           </MainLayout>
         }
       >
-        <Route path={BASE_ROUTES.JOIN} element={<LoginPage />} />
+        <Route path={BASE_ROUTES.JOIN} element={<JoinPage />} />
 
         <Route
           path={BASE_ROUTES.MEETING_ROOM}
