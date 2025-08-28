@@ -47,9 +47,11 @@ function DrawerContent({
   className,
   children,
   indicatorClassName,
+  showIndicator = true,
   ...props
 }: React.ComponentProps<typeof DrawerPrimitive.Content> & {
   indicatorClassName?: string;
+  showIndicator?: boolean;
 }) {
   return (
     <DrawerPortal data-slot="drawer-portal">
@@ -66,12 +68,14 @@ function DrawerContent({
         )}
         {...props}
       >
-        <div
-          className={cn(
-            'bg-muted mx-auto mt-4 hidden h-2 w-[100px] shrink-0 rounded-full group-data-[vaul-drawer-direction=bottom]/drawer-content:block',
-            indicatorClassName,
-          )}
-        />
+        {showIndicator && (
+          <div
+            className={cn(
+              'bg-muted mx-auto mt-4 hidden h-2 w-[100px] shrink-0 rounded-full group-data-[vaul-drawer-direction=bottom]/drawer-content:block',
+              indicatorClassName,
+            )}
+          />
+        )}
         {children}
       </DrawerPrimitive.Content>
     </DrawerPortal>

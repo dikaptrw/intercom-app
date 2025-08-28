@@ -1,5 +1,6 @@
 import type { VideoTileState } from 'amazon-chime-sdk-js';
-import type { JSX } from 'react';
+import type { LucideProps } from 'lucide-react';
+import type { ForwardRefExoticComponent, RefAttributes } from 'react';
 
 export type Participant = {
   attendeeId: string;
@@ -11,13 +12,17 @@ export type Participant = {
 };
 
 export type ControlItem = {
-  icon: JSX.Element;
+  icon: ForwardRefExoticComponent<
+    Omit<LucideProps, 'ref'> & RefAttributes<SVGSVGElement>
+  >;
+  iconClassName?: string;
   onClick: () => void;
   label: string;
   className?: string;
   buttonClassName?: string;
   type?: string;
   tooltip?: string;
+  showLabel?: boolean;
 };
 
 export type ChatMessage = {

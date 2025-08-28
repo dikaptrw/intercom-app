@@ -11,16 +11,12 @@ import {
   useToggleLocalMute,
 } from 'amazon-chime-sdk-component-library-react';
 import {
-  Info,
   MessagesSquare,
   Mic,
   MicOff,
-  MonitorUp,
   Phone,
-  UsersRound,
   Video,
   VideoOff,
-  Volume2,
 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { Fragment } from 'react/jsx-runtime';
@@ -42,29 +38,30 @@ function RoomFooter() {
     meetingManager.meetingSessionConfiguration?.externalMeetingId;
 
   const mainControlItems: ControlItem[] = [
+    // {
+    //   icon: Volume2,
+    //   onClick: () => console.log('Volume button clicked'),
+    //   label: 'Audio',
+    // },
     {
-      icon: <Volume2 />,
-      onClick: () => console.log('Volume button clicked'),
-      label: 'Audio',
-    },
-    {
-      icon: muted ? <MicOff /> : <Mic />,
+      icon: muted ? MicOff : Mic,
       onClick: () => toggleMute(),
       label: 'Mute',
     },
     {
-      icon: videoEnabled ? <Video /> : <VideoOff />,
+      icon: videoEnabled ? Video : VideoOff,
       onClick: async () => await toggleVideo(),
       label: 'Camera',
     },
+    // {
+    //   icon: MonitorUp,
+    //   onClick: () => console.log('Volume button clicked'),
+    //   label: 'Share Screen',
+    //   className: 'hidden lg:block',
+    // },
     {
-      icon: <MonitorUp />,
-      onClick: () => console.log('Volume button clicked'),
-      label: 'Share Screen',
-      className: 'hidden lg:block',
-    },
-    {
-      icon: <Phone className="rotate-[135deg]" />,
+      icon: Phone,
+      iconClassName: 'rotate-[135deg]',
       onClick: async () => {
         await meetingManager.leave();
 
@@ -86,22 +83,23 @@ function RoomFooter() {
 
   const rightSideControlItems: ControlItem[] = [
     {
-      icon: <MessagesSquare />,
+      icon: MessagesSquare,
       onClick: () => {
         setSideMenu((prev) => (prev === 'chat' ? undefined : 'chat'));
       },
-      label: 'Chat room',
+      label: 'In-call messages',
+      showLabel: true,
     },
-    {
-      icon: <UsersRound />,
-      onClick: () => console.log('Participants'),
-      label: 'Participants',
-    },
-    {
-      icon: <Info />,
-      onClick: () => console.log('End meeting'),
-      label: 'Meeting info',
-    },
+    // {
+    //   icon: UsersRound,
+    //   onClick: () => console.log('Participants'),
+    //   label: 'Participants',
+    // },
+    // {
+    //   icon: Info,
+    //   onClick: () => console.log('End meeting'),
+    //   label: 'Meeting info',
+    // },
   ];
 
   return (
@@ -153,7 +151,7 @@ function RoomFooter() {
                         )}
                         onClick={item.onClick}
                       >
-                        {item.icon}
+                        <item.icon className={cn(item.iconClassName)} />
                       </button>
                     </div>
                   </div>
@@ -184,12 +182,14 @@ function RoomFooter() {
               >
                 <button
                   className={cn(
-                    'text-white cursor-pointer w-12 h-12 rounded-full flex justify-center items-center hover:bg-white/10 transition-colors duration-300',
+                    'text-white cursor-pointer w-12 h-12 rounded-full flex gap-3 justify-center items-center hover:bg-white/10 transition-colors duration-300',
                     '[&>svg]:w-6 [&>svg]:h-6 [&>svg]:scale-90',
+                    item.showLabel && 'w-auto px-4',
                   )}
                   onClick={item.onClick}
                 >
-                  {item.icon}
+                  <item.icon className={cn(item.iconClassName)} />
+                  {item.label}
                 </button>
               </div>
             </TooltipGroup>

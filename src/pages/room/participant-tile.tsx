@@ -47,7 +47,7 @@ const ParticipantTile = ({
 
       <div className="flex items-center justify-center w-full h-full">
         {/* tile actions */}
-        {!simpleUi && (
+        {!simpleUi && false && (
           <div className="absolute opacity-0 group-hover/participant:opacity-100 transition-opacity duration-300 left-1/2 top-1/2 -translate-y-1/2 -translate-x-1/2 z-[9]">
             <TileActions
               attendeeId={participant?.attendeeId || ''}

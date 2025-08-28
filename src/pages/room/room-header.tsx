@@ -4,16 +4,16 @@ import {
   DrawerDescription,
   DrawerTitle,
 } from '@/components/ui/drawer';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToggleCameraMode } from '@/hooks/useToggleCameraMode';
 import {
   useAttendeeStatus,
   useMeetingManager,
 } from 'amazon-chime-sdk-component-library-react';
-import { ChevronDown, Info, SwitchCamera } from 'lucide-react';
+import { MessagesSquare, SwitchCamera, X } from 'lucide-react';
 import RoomChat from './room-chat';
 import { useDevice } from '@/hooks/useDevice';
 import { useRoom } from '@/hooks/useRoom';
+import { Button } from '@/components/ui/button';
 
 function RoomHeader() {
   const meetingManager = useMeetingManager();
@@ -30,11 +30,26 @@ function RoomHeader() {
   return (
     <>
       <Drawer open={!!sideMenu && isLg} onClose={() => setSideMenu(undefined)}>
-        <DrawerContent className="min-h-[97dvh] h-full">
+        <DrawerContent showIndicator={false} className="min-h-[97dvh] h-full">
           <DrawerTitle className="sr-only">Room Menu</DrawerTitle>
           <DrawerDescription className="sr-only">Room Menu</DrawerDescription>
 
-          <Tabs
+          <div className="px-4 py-4 flex items-center justify-between gap-4">
+            <div className="font-medium text-lg">In-call messages</div>
+
+            <Button
+              onClick={() => setSideMenu(undefined)}
+              variant={'ghost'}
+              size={'icon'}
+              className="rounded-full"
+            >
+              <X className="w-5 h-5 size-6" />
+            </Button>
+          </div>
+
+          <RoomChat />
+
+          {/* <Tabs
             defaultValue="messages"
             className="w-full h-full mt-4 flex flex-col max-w-[700px] mx-auto"
           >
@@ -55,28 +70,26 @@ function RoomHeader() {
             <TabsContent value="info">
               <div className="px-4">Meeting details content</div>
             </TabsContent>
-          </Tabs>
+          </Tabs> */}
         </DrawerContent>
       </Drawer>
 
       <div className="h-[var(--room-header-height)] px-5 flex items-center justify-between gap-5 lg:hidden [&_button]:cursor-pointer">
-        <button
-          onClick={() => setSideMenu('chat')}
-          className="flex col-span-3 text-white items-center gap-2"
-        >
-          <ChevronDown className="w-4 h-4" />
+        <div className="flex col-span-3 text-white items-center gap-2">
           <div className="font-medium text-lg">{externalMeetingId}</div>
-        </button>
+        </div>
 
         <div className="flex items-center gap-5">
-          <button className="text-white">
-            <Info className="w-5 h-5" />
+          <button onClick={() => setSideMenu('chat')} className="text-white">
+            <MessagesSquare className="w-5 h-5" />
           </button>
-          {videoEnabled && isCanToggleCameraMode && (
-            <button onClick={toggleCameraMode} className="text-white">
-              <SwitchCamera className="w-5 h-5" />
-            </button>
-          )}
+          <button
+            disabled={!videoEnabled || !isCanToggleCameraMode}
+            onClick={toggleCameraMode}
+            className="text-white disabled:opacity-50 disabled:cursor-default"
+          >
+            <SwitchCamera className="w-5 h-5" />
+          </button>
         </div>
       </div>
     </>
