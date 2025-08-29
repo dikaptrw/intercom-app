@@ -18,6 +18,7 @@ import {
 import RoomGuard from './guards/RoomGuard';
 import MainLayout from './layouts/MainLayout';
 import { MAIN_ROUTES } from './utils/functions/routes';
+import UnitsPage from './pages/units';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -32,6 +33,7 @@ const router = createBrowserRouter(
         }
       >
         <Route path={BASE_ROUTES.JOIN} element={<JoinPage />} />
+        <Route path={BASE_ROUTES.UNITS} element={<UnitsPage />} />
 
         <Route
           path={BASE_ROUTES.MEETING_ROOM}
