@@ -19,11 +19,12 @@ import RoomGuard from './guards/RoomGuard';
 import MainLayout from './layouts/MainLayout';
 import { MAIN_ROUTES } from './utils/functions/routes';
 import UnitsPage from './pages/units';
+import QueryClientProvider from './providers/QueryProvider';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route index element={<Navigate to={ROUTES.JOIN} replace />} />
+      <Route index element={<Navigate to={ROUTES.UNITS} replace />} />
 
       <Route
         element={
@@ -56,11 +57,13 @@ function App() {
   }, []);
 
   return (
-    <ThemeProvider theme={darkTheme}>
-      <MeetingProvider>
-        <RouterProvider router={router} />
-      </MeetingProvider>
-    </ThemeProvider>
+    <QueryClientProvider>
+      <ThemeProvider theme={darkTheme}>
+        <MeetingProvider>
+          <RouterProvider router={router} />
+        </MeetingProvider>
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 }
 
