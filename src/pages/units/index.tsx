@@ -1,11 +1,18 @@
 import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
+import { useUnitsQuery } from '@/graphql/api.graphql';
 import { useScrollShadows } from '@/hooks/useScrollShadows';
 import { getInitials } from '@/utils/functions';
 import { HouseWifi, Phone } from 'lucide-react';
 
 function UnitsPage() {
+  const { data: dataUnitsQuery, isLoading: isLoadingUnitsQuery } =
+    useUnitsQuery();
+
   const { ref, showBottomShadow, showTopShadow } =
-    useScrollShadows<HTMLDivElement>();
+    useScrollShadows<HTMLDivElement>({
+      deps: [isLoadingUnitsQuery],
+    });
 
   return (
     <div className="bg-background flex h-svh max-h-svh justify-center gap-6 p-6">
@@ -29,36 +36,43 @@ function UnitsPage() {
             <div className="pointer-events-none absolute z-[2] top-0 left-0 right-0 h-4 bg-gradient-to-b from-black/5 to-transparent" />
           )}
 
+          {}
           <div
             ref={ref}
             className="absolute z-[1] inset-0 flex overflow-y-auto flex-col gap-4 max-h-full no-scrollbar"
           >
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((_, i) => {
-              return (
-                <div
-                  key={i}
-                  className="border rounded-md px-3 py-2 text-sm flex items-center gap-4"
-                >
-                  <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center font-bold bg-primary/10 text-sm">
-                    {getInitials('Unit 1')}
-                  </div>
-                  <div className="flex-1 flex-col sm:flex-row flex sm:items-center sm:gap-2">
-                    <div className="shrink-0 font-semibold text-sm line-clamp-1 break-all">
-                      Unit 1
+            {!isLoadingUnitsQuery &&
+              dataUnitsQuery?.units?.map((unit, i) => {
+                return (
+                  <div
+                    key={i}
+                    className="border rounded-md px-3 py-2 text-sm flex items-center gap-4"
+                  >
+                    <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center font-bold bg-primary/10 text-sm">
+                      {getInitials(unit.name)}
                     </div>
-                    <div className="text-xs sm:text-sm line-clamp-1 break-all">
-                      (Dika Putra)
+                    <div className="flex-1 flex-col sm:flex-row flex sm:items-center sm:gap-2">
+                      <div className="shrink-0 font-semibold text-sm line-clamp-1 break-all">
+                        {unit.name}
+                      </div>
+                      <div className="text-xs sm:text-sm line-clamp-1 break-all">
+                        ({unit.id})
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Button size={'xs'}>
+                        <Phone />
+                        <span>Call</span>
+                      </Button>
                     </div>
                   </div>
-                  <div className="flex items-center gap-1">
-                    <Button size={'xs'}>
-                      <Phone />
-                      <span>Call</span>
-                    </Button>
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })}
+
+            {isLoadingUnitsQuery &&
+              [1, 2, 3, 4, 5].map((i) => (
+                <Skeleton key={i} className="min-h-[54px] w-full" />
+              ))}
           </div>
 
           {/* Bottom shadow */}

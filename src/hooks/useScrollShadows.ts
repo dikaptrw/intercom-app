@@ -1,6 +1,10 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, type DependencyList } from 'react';
 
-export function useScrollShadows<T extends HTMLElement>() {
+export function useScrollShadows<T extends HTMLElement>({
+  deps,
+}: {
+  deps: DependencyList;
+}) {
   const ref = useRef<T>(null);
   const [showTopShadow, setShowTopShadow] = useState(false);
   const [showBottomShadow, setShowBottomShadow] = useState(false);
@@ -14,7 +18,7 @@ export function useScrollShadows<T extends HTMLElement>() {
       setShowBottomShadow(el.scrollHeight - el.scrollTop > el.clientHeight);
     };
 
-    updateShadows(); // initial check
+    updateShadows(); // run once on mount or when deps change
 
     el.addEventListener('scroll', updateShadows);
     window.addEventListener('resize', updateShadows);
@@ -23,7 +27,7 @@ export function useScrollShadows<T extends HTMLElement>() {
       el.removeEventListener('scroll', updateShadows);
       window.removeEventListener('resize', updateShadows);
     };
-  }, []);
+  }, deps);
 
   return { ref, showTopShadow, showBottomShadow };
 }
