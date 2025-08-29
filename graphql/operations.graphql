@@ -4,3 +4,13 @@ query units {
     name
   }
 }
+
+query session($id: ID!) {
+  session(id: $id)
+}
+
+mutation call($id: ID!) {
+  call(id: $id) {
+    id
+  }
+}
