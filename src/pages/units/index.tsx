@@ -1,29 +1,53 @@
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { useUnitsQuery } from '@/graphql/api.graphql';
+import { useCallMutation, useUnitsQuery } from '@/graphql/api.graphql';
 import { useScrollShadows } from '@/hooks/useScrollShadows';
+import { ROUTES } from '@/utils/constants/routes';
 import { getInitials } from '@/utils/functions';
+import { generateRouteParams } from '@/utils/functions/routes';
 import { HouseWifi, Phone } from 'lucide-react';
+import { useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function UnitsPage() {
-  const { data: dataUnitsQuery, isLoading: isLoadingUnitsQuery } =
-    useUnitsQuery();
+  const navigate = useNavigate();
+  const {
+    data: dataUnitsQuery,
+    isLoading: isLoadingUnitsQuery,
+    isError: isErrorUnitsQuery,
+  } = useUnitsQuery();
+  const {
+    mutateAsync: mutateAsyncCallMutation,
+    isPending: isPendingCallMutation,
+  } = useCallMutation();
 
   const { ref, showBottomShadow, showTopShadow } =
     useScrollShadows<HTMLDivElement>({
       deps: [isLoadingUnitsQuery],
     });
 
+  const handleCall = useCallback((id: string) => {
+    mutateAsyncCallMutation({
+      id,
+    }).then((res) => {
+      if (res.call.id) {
+        navigate(
+          generateRouteParams(ROUTES.JOIN, {
+            unitId: res.call.id,
+          }),
+        );
+      }
+    });
+  }, []);
+
   return (
     <div className="bg-background flex h-svh max-h-svh justify-center gap-6 p-6">
       <div className="w-full max-w-md h-full flex flex-col">
         <div className="flex flex-col items-center gap-2">
-          <a href="#" className="flex flex-col items-center gap-2 font-medium">
-            <div className="flex size-8 items-center justify-center rounded-md">
-              <HouseWifi className="size-6" />
-            </div>
-            <span className="sr-only">Acme Inc.</span>
-          </a>
+          <div className="flex size-8 items-center justify-center rounded-md">
+            <HouseWifi className="size-6" />
+          </div>
+
           <h1 className="text-xl font-bold">Select a Unit Below</h1>
           <div className="text-center text-sm">
             Choose the unit you’d like to interact with to continue.
@@ -42,6 +66,7 @@ function UnitsPage() {
             className="absolute z-[1] inset-0 flex overflow-y-auto flex-col gap-4 max-h-full no-scrollbar"
           >
             {!isLoadingUnitsQuery &&
+              !isErrorUnitsQuery &&
               dataUnitsQuery?.units?.map((unit, i) => {
                 return (
                   <div
@@ -60,7 +85,11 @@ function UnitsPage() {
                       </div>
                     </div>
                     <div className="flex items-center gap-1">
-                      <Button size={'xs'}>
+                      <Button
+                        disabled={isPendingCallMutation}
+                        onClick={() => handleCall(unit.id)}
+                        size={'xs'}
+                      >
                         <Phone />
                         <span>Call</span>
                       </Button>
@@ -69,7 +98,7 @@ function UnitsPage() {
                 );
               })}
 
-            {isLoadingUnitsQuery &&
+            {(isLoadingUnitsQuery || isErrorUnitsQuery) &&
               [1, 2, 3, 4, 5].map((i) => (
                 <Skeleton key={i} className="min-h-[54px] w-full" />
               ))}

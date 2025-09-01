@@ -3,7 +3,7 @@
 import { generateRootPath } from '@/utils/functions/routes';
 
 export const BASE_ROUTES = {
-  JOIN: 'join',
+  JOIN: 'join/:unitId',
   UNITS: 'units',
   MEETING_ROOM: 'room/:meetingId',
 };
