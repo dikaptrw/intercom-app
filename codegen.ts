@@ -17,11 +17,6 @@ const config: CodegenConfig = {
   generates: {
     'src/graphql/api.graphql.ts': {
       plugins: [
-        {
-          add: {
-            content: '// @ts-ignore\n',
-          },
-        },
         'typescript',
         'typescript-operations',
         'typescript-react-query',
@@ -35,7 +30,7 @@ const config: CodegenConfig = {
     },
   },
   config: {
-    fetcher: '../hooks/useGraphqlFetcher#useFetchData',
+    fetcher: '../hooks/useGraphqlFetcher#execute',
     reactQueryVersion: 5,
     pureMagicComment: true,
     exposeQueryKeys: true,

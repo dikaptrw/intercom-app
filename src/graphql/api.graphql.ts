@@ -1,12 +1,10 @@
-// @ts-ignore
-
 import {
   useQuery,
   useMutation,
   UseQueryOptions,
   UseMutationOptions,
 } from '@tanstack/react-query';
-import { useFetchData } from '../hooks/useGraphqlFetcher';
+import { execute } from '../hooks/useGraphqlFetcher';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -105,10 +103,7 @@ export const useUnitsQuery = <TData = UnitsQuery, TError = unknown>(
 ) => {
   return useQuery<UnitsQuery, TError, TData>({
     queryKey: variables === undefined ? ['units'] : ['units', variables],
-    queryFn: useFetchData<UnitsQuery, UnitsQueryVariables>(
-      UnitsDocument,
-      variables,
-    ),
+    queryFn: execute<UnitsQuery, UnitsQueryVariables>(UnitsDocument, variables),
     ...options,
   });
 };
@@ -120,11 +115,7 @@ useUnitsQuery.fetcher = (
   variables?: UnitsQueryVariables,
   options?: RequestInit['headers'],
 ) =>
-  useFetchData<UnitsQuery, UnitsQueryVariables>(
-    UnitsDocument,
-    variables,
-    options,
-  );
+  execute<UnitsQuery, UnitsQueryVariables>(UnitsDocument, variables, options);
 
 export const SessionDocument = /*#__PURE__*/ `
     query session($id: ID!) {
@@ -140,7 +131,7 @@ export const useSessionQuery = <TData = SessionQuery, TError = unknown>(
 ) => {
   return useQuery<SessionQuery, TError, TData>({
     queryKey: ['session', variables],
-    queryFn: useFetchData<SessionQuery, SessionQueryVariables>(
+    queryFn: execute<SessionQuery, SessionQueryVariables>(
       SessionDocument,
       variables,
     ),
@@ -157,7 +148,7 @@ useSessionQuery.fetcher = (
   variables: SessionQueryVariables,
   options?: RequestInit['headers'],
 ) =>
-  useFetchData<SessionQuery, SessionQueryVariables>(
+  execute<SessionQuery, SessionQueryVariables>(
     SessionDocument,
     variables,
     options,
@@ -182,10 +173,7 @@ export const useCallMutation = <TError = unknown, TContext = unknown>(
   return useMutation<CallMutation, TError, CallMutationVariables, TContext>({
     mutationKey: ['call'],
     mutationFn: (variables?: CallMutationVariables) =>
-      useFetchData<CallMutation, CallMutationVariables>(
-        CallDocument,
-        variables,
-      )(),
+      execute<CallMutation, CallMutationVariables>(CallDocument, variables)(),
     ...options,
   });
 };
@@ -194,7 +182,7 @@ useCallMutation.fetcher = (
   variables: CallMutationVariables,
   options?: RequestInit['headers'],
 ) =>
-  useFetchData<CallMutation, CallMutationVariables>(
+  execute<CallMutation, CallMutationVariables>(
     CallDocument,
     variables,
     options,

@@ -1,4 +1,4 @@
-import useToken, {
+import {
   ACCESS_TOKEN_COOKIE_NAME,
   ID_TOKEN_COOKIE_NAME,
 } from '@/hooks/useToken';
@@ -51,20 +51,18 @@ const fetchData = async <TData, TVariables>(
   return json.data;
 };
 
-export const useFetchData = <TData, TVariables>(
+export const execute = <TData, TVariables>(
   query: string,
   variables?: TVariables,
   options?: RequestInit['headers'],
 ): (() => Promise<TData>) => {
-  const { getAccessToken } = useToken();
-
   return async () => {
     return await fetchData<TData, TVariables>(
       GRAPHQL_URL,
       query,
       variables,
       options,
-      getAccessToken(),
+      Cookies.get(ACCESS_TOKEN_COOKIE_NAME) ?? '',
     );
   };
 };
