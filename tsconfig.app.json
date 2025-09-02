@@ -41,5 +41,6 @@
       }
     ]
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["src/graphql"]
 }
