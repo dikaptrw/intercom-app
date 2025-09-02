@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "format": "prettier --write ./",
-    "codegen": "graphql-codegen --config codegen.ts"
+    "codegen": "graphql-codegen --config codegen.ts && eslint --fix src/graphql"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.15",
